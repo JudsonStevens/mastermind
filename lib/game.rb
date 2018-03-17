@@ -1,7 +1,3 @@
-require_relative 'answer_checker.rb'
-require_relative 'answer_generator.rb'
-require_relative 'game_statements.rb'
-
 class Game
 
   attr_accessor :number_of_guesses,
@@ -24,7 +20,6 @@ class Game
     @printer = GameStatements.new
     @results = []
     @finished_time = []
-    @user_input = ""
   end
 
   def get_game_input
@@ -32,16 +27,21 @@ class Game
   end
 
   def new_game
-    @printer.play_message
     until @user_input == "q" || @user_input == "quit"
       get_game_input
       if @user_input == "q" || @user_input == "quit"
         @printer.quit_message
         exit
-      elsif @user_input.length > 4
+      elsif @user_input == "h" || @user_input == "history"
+        display_guess_history
+      elsif user_input == "c" || user_input == "cheat"
+        @printer.cheat_message(@answer_code)
+        @printer.play_again_message
+        InitialInput.new.play
+      elsif @user_input.length > @length_of_answer
         @printer.input_too_long
         @printer.continue_guesses
-      elsif @user_input.length < 4
+      elsif @user_input.length < @length_of_answer
         @printer.input_too_short
         @printer.continue_guesses
       elsif @user_input.chars == @answer_code
@@ -62,9 +62,18 @@ class Game
     @results = AnswerChecker.answer_check(user_guess, answer_code)
   end
 
+  def display_guess_history
+    puts @number_of_guesses
+    @printer.continue_guesses
+  end
+
   def time_keeper
     minutes = ((Time.now - @starting_time)/60).to_i
     seconds = ((Time.now - @starting_time) % 60).to_i
     @finished_time = [minutes, seconds]
+  end
+
+  def display_answer_code(answer)
+    answer = @answer_code
   end
 end

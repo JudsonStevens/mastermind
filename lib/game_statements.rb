@@ -1,7 +1,4 @@
-# Dir['.lib/*.rb'].each { |file| require file}
-Dir['./lib/*.rb'].each{ |f| require f }
 class GameStatements
-
 
   def welcome_message
     puts "\e[H\e[2J"
@@ -15,21 +12,39 @@ class GameStatements
     puts "The object of this game is to correctly guess the sequence of elements that is randomly selected."
     puts "Once you make a guess, the game will give you hints about the guess you made and how close it is to the answer."
     puts "Keep guessing until you get it right!"
+    puts "Press (p)lay to continue to the game or (q)uit to quit."
+    print "> "
   end
 
-  def play_message
+  def play_beginners_message
     puts "I have generated a beginner sequence with four elements made up of: (r)ed,
     (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
     puts "What's your guess?"
-    print ">"
+    print "> "
   end
+
+  def play_intermediate_message
+    puts "I have generated an intermediate sequence with six elements made up of: (r)ed,
+    (g)reen, (b)lue, (p)urple, and (y)ellow. Use (q)uit at any time to end the game."
+    puts "What's your guess?"
+    print "> "
+  end
+
+  def play_hard_message
+    puts "I have generated a hard sequence with eight elements made up of: (r)ed,
+    (g)reen, (b)lue, (p)urple, (o)range, and (y)ellow. Use (q)uit at any time to end the game."
+    puts "What's your guess?"
+    print "> "
+  end
+
 
   def quit_message
     puts "Sorry to see you go!"
   end
 
-  # def cheat_message
-  #   puts "You cheater, the code is #{AnswerGenerator.@answer}."
+  def cheat_message(answer)
+    puts "You cheater, the code is #{answer.join}."
+  end
 
   def invalid_input
     puts "Input is invalid, try again."
@@ -52,6 +67,7 @@ class GameStatements
     puts "Your guess is #{user_input}, which has #{results[0]} colors"
     puts "in correct position and #{results[1]} correct colors."
     puts "You have taken a total of #{number_of_guesses.length} guesses."
+    puts "Type (h) for a history of your guesses."
   end
 
   def continue_guesses
@@ -61,6 +77,7 @@ class GameStatements
 
   def play_again_message
     puts "Would you like to (p)lay again or (q)uit?"
+    print "> "
     input = gets.chomp.strip
     if
       input == "p" || input == "play"
@@ -68,6 +85,12 @@ class GameStatements
       input == "q" || input == "quit"
       exit
     end
+  end
+
+  def choose_difficulty
+    puts "What difficult would you like to play?"
+    puts "(b)eginner, (i)ntermediate, (h)ard"
+    print "> "
   end
 
 end

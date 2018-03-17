@@ -1,5 +1,3 @@
-require 'pry'
-
 class AnswerChecker
 
   def self.answer_check (user_guess, answer_code)
@@ -19,6 +17,3 @@ class AnswerChecker
     end
   end
 end
-# a = ["r", "g", "r", "y"]
-# g = "rgrb"
-# p AnswerChecker.check_answer_correctness(g, a)

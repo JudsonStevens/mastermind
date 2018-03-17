@@ -1,5 +1,4 @@
 class AnswerGenerator
-  attr_reader :answer
 
   def generate_answer(length_of_answer, number_of_colors)
     if number_of_colors == 4
@@ -9,7 +8,7 @@ class AnswerGenerator
     elsif number_of_colors == 6
       charset = Array["r", "b", "g", "y", "p", "o"]
     end
-    @answer = Array.new(length_of_answer) { charset.sample }
+    Array.new(length_of_answer) { charset.sample }
   end
 end
 # AnswerGenerator.new.generate_answer(6, 5)
