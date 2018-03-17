@@ -37,6 +37,11 @@ class GameStatements
     print "> "
   end
 
+  def congratulations
+    puts "What's your name?"
+    print "> "
+  end
+
 
   def quit_message
     puts "Sorry to see you go!"
@@ -59,8 +64,7 @@ class GameStatements
   end
 
   def win_message(user_input, number_of_guesses, finished_time )
-    puts "Congratulations! You guessed the sequence #{user_input} in #{number_of_guesses} guesses over
-    #{finished_time[0]} minutes, #{finished_time[1]} seconds."
+    puts "Congratulations! You guessed the sequence #{user_input} in #{number_of_guesses} guesses over #{finished_time[0]} minutes, #{finished_time[1]} seconds."
   end
 
   def report_guess(user_input, results, number_of_guesses)

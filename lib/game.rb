@@ -1,9 +1,11 @@
+require 'json'
 class Game
 
   attr_accessor :number_of_guesses,
                 :results,
                 :finished_time,
-                :user_input
+                :user_input,
+                :increment
 
   attr_reader :answer_code,
               :amount_of_colors,
@@ -20,6 +22,7 @@ class Game
     @printer = GameStatements.new
     @results = []
     @finished_time = []
+    @top_ten_list = TopTenList.new
   end
 
   def get_game_input
@@ -29,6 +32,7 @@ class Game
   def new_game
     until @user_input == "q" || @user_input == "quit"
       get_game_input
+      p @answer_code
       if @user_input == "q" || @user_input == "quit"
         @printer.quit_message
         exit
@@ -47,6 +51,10 @@ class Game
       elsif @user_input.chars == @answer_code
         time_keeper
         @printer.win_message(@user_input, @number_of_guesses.length, @finished_time)
+        @printer.congratulations
+        @top_ten_list.get_user_name
+        @top_ten_list.store_name_and_time(@user_input, @finished_time, @number_of_guesses.length)
+        @top_ten_list.user_completion_stats(@user_input, @finished_time, @number_of_guesses.length)
         @printer.play_again_message
         InitialInput.new.play
       else
