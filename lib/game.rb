@@ -1,7 +1,7 @@
 require 'json'
 class Game
 
-  attr_accessor :number_of_guesses,
+  attr_accessor :history_of_guesses,
                 :results,
                 :finished_time,
                 :user_input,
@@ -17,7 +17,7 @@ class Game
     @answer_code = AnswerGenerator.new.generate_answer(length_of_answer, number_of_colors)
     @amount_of_colors = number_of_colors
     @length_of_answer = length_of_answer
-    @number_of_guesses = []
+    @history_of_guesses = []
     @starting_time = Time.now
     @printer = GameStatements.new
     @results = []
@@ -32,7 +32,7 @@ class Game
   def new_game
     until @user_input == "q" || @user_input == "quit"
       get_game_input
-      p @answer_code
+      # p @answer_code
       if @user_input == "q" || @user_input == "quit"
         @printer.quit_message
         exit
@@ -49,30 +49,35 @@ class Game
         @printer.input_too_short
         @printer.continue_guesses
       elsif @user_input.chars == @answer_code
-        time_keeper
-        @printer.win_message(@user_input, @number_of_guesses.length, @finished_time)
-        @printer.congratulations
-        @top_ten_list.get_user_name
-        @top_ten_list.store_name_and_time(@user_input, @finished_time, @number_of_guesses.length)
-        @top_ten_list.user_completion_stats(@user_input, @finished_time, @number_of_guesses.length)
-        @printer.play_again_message
-        InitialInput.new.play
+        winner
       else
         intake_guess(@user_input, @answer_code)
-        @printer.report_guess(@user_input, @results, @number_of_guesses)
+        @printer.report_guess(@user_input, @results, @history_of_guesses)
         @printer.continue_guesses
       end
     end
   end
 
   def intake_guess(user_guess, answer_code)
-    @number_of_guesses << @user_input
+    @history_of_guesses << @user_input
     @results = AnswerChecker.answer_check(user_guess, answer_code)
   end
 
   def display_guess_history
-    puts @number_of_guesses
+    puts @history_of_guesses
     @printer.continue_guesses
+  end
+
+  def winner
+    time_keeper
+    @printer.win_message(@user_input, @history_of_guesses.length, @finished_time)
+    @printer.congratulations
+    @top_ten_list.get_user_name
+    @top_ten_list.store_name_and_time(@user_input, @finished_time, @history_of_guesses.length)
+    @top_ten_list.user_completion_stats(@user_input, @finished_time, @history_of_guesses.length)
+    @top_ten_list.top_ten_ranking
+    @printer.play_again_message
+    InitialInput.new.play
   end
 
   def time_keeper
