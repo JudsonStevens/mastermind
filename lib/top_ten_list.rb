@@ -78,7 +78,7 @@ class TopTenList
       difference_in_number_of_guesses = average_count_to_solve - number_of_guesses
       print "#{difference_in_number_of_guesses} less guesses than"
     elsif number_of_guesses == average_count_to_solve
-      print "exactly the same guesses as"
+      print "exactly the same number of guesses as"
     end
   end
 

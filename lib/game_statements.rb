@@ -83,10 +83,9 @@ class GameStatements
     puts "Would you like to (p)lay again or (q)uit?"
     print "> "
     input = gets.chomp.strip
-    if
-      input == "p" || input == "play"
-    elsif
-      input == "q" || input == "quit"
+    if input == "p" || input == "play"
+    elsif input == "q" || input == "quit"
+      puts "Sorry to see you go!"
       exit
     end
   end
