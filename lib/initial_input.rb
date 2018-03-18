@@ -13,6 +13,23 @@ class InitialInput
     @user_input = gets.chomp.downcase.strip
   end
 
+  def initial_start
+    @printer.welcome_message
+    until @user_input == "q" || @user_input == "quit"
+      get_user_input
+      if user_input == "p" || user_input == "play" 
+        play
+      elsif user_input == "q" || user_input == "quit"
+        @printer.quit_message
+        exit
+      elsif user_input == "i" || user_input == "instructions"
+        @printer.instruction_message
+      else
+        @printer.invalid_input
+      end
+    end
+  end
+
   def play
     @printer.choose_difficulty
     user_input_difficulty = gets.chomp.downcase.strip
@@ -31,20 +48,4 @@ class InitialInput
     end
   end
 
-  def initial_start
-    @printer.welcome_message
-    until @user_input == "q" || @user_input == "quit"
-      get_user_input
-      if user_input == "p" || user_input == "play"
-        play
-      elsif user_input == "q" || user_input == "quit"
-        @printer.quit_message
-        exit
-      elsif user_input == "i" || user_input == "instructions"
-        @printer.instruction_message
-      else
-        @printer.invalid_input
-      end
-    end
-  end
 end

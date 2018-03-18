@@ -1,4 +1,3 @@
-require 'json'
 class Game
 
   attr_accessor :history_of_guesses,

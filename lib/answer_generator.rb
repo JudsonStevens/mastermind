@@ -11,4 +11,3 @@ class AnswerGenerator
     Array.new(length_of_answer) { charset.sample }
   end
 end
-# AnswerGenerator.new.generate_answer(6, 5)

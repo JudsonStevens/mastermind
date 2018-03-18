@@ -5,7 +5,7 @@ class GameStatements
     puts "\n\n              Welcome to MASTERMIND"
     puts ""
     puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
-    print "Enter an instruction >"
+    print "Enter an instruction > "
   end
 
   def instruction_message
@@ -48,7 +48,7 @@ class GameStatements
   end
 
   def cheat_message(answer)
-    puts "You cheater, the code is #{answer.join}."
+    puts "You cheater, the code is #{answer.join.upcase}."
   end
 
   def invalid_input
