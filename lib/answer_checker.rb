@@ -8,12 +8,10 @@ class AnswerChecker
 
   def self.check_answer_position(user_guess, answer_code)
     character_positions = answer_code.zip(user_guess.chars)
-    character_positions.count { |x, y| x == y }
+    character_positions.count { |guess_character, answer_character| guess_character == answer_character }
   end
 
   def self.check_answer_correctness(user_guess, answer_code)
-    answer_code.uniq.count do |letter|
-      user_guess.include?(letter)
-    end
+    answer_code.uniq.count { |letter| user_guess.include?(letter)}
   end
 end

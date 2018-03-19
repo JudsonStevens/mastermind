@@ -5,7 +5,7 @@ class GameStatements
     puts "\n\n              Welcome to MASTERMIND"
     puts ""
     puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
-    print "Enter an instruction >"
+    print "Enter an instruction > "
   end
 
   def instruction_message
@@ -37,13 +37,17 @@ class GameStatements
     print "> "
   end
 
+  def congratulations
+    puts "What's your name?"
+    print "> "
+  end
 
   def quit_message
     puts "Sorry to see you go!"
   end
 
   def cheat_message(answer)
-    puts "You cheater, the code is #{answer.join}."
+    puts "You cheater, the code is #{answer.join.upcase}."
   end
 
   def invalid_input
@@ -59,8 +63,7 @@ class GameStatements
   end
 
   def win_message(user_input, number_of_guesses, finished_time )
-    puts "Congratulations! You guessed the sequence #{user_input} in #{number_of_guesses} guesses over
-    #{finished_time[0]} minutes, #{finished_time[1]} seconds."
+    puts "Congratulations! You guessed the sequence #{user_input} in #{number_of_guesses} guesses over #{finished_time[0]} minutes, #{finished_time[1]} seconds."
   end
 
   def report_guess(user_input, results, number_of_guesses)
@@ -79,10 +82,9 @@ class GameStatements
     puts "Would you like to (p)lay again or (q)uit?"
     print "> "
     input = gets.chomp.strip
-    if
-      input == "p" || input == "play"
-    elsif
-      input == "q" || input == "quit"
+    if input == "p" || input == "play"
+    elsif input == "q" || input == "quit"
+      puts "Sorry to see you go!"
       exit
     end
   end

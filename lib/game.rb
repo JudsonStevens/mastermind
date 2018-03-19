@@ -1,9 +1,10 @@
 class Game
 
-  attr_accessor :number_of_guesses,
+  attr_accessor :history_of_guesses,
                 :results,
                 :finished_time,
-                :user_input
+                :user_input,
+                :increment
 
   attr_reader :answer_code,
               :amount_of_colors,
@@ -12,18 +13,30 @@ class Game
               :length_of_answer
 
   def initialize(length_of_answer, number_of_colors)
-    @answer_code = AnswerGenerator.new.generate_answer(length_of_answer, number_of_colors)
+    @answer_code = generate_answer(length_of_answer, number_of_colors)
     @amount_of_colors = number_of_colors
     @length_of_answer = length_of_answer
-    @number_of_guesses = []
+    @history_of_guesses = []
     @starting_time = Time.now
     @printer = GameStatements.new
     @results = []
     @finished_time = []
+    @top_ten_list = TopTenList.new
   end
 
   def get_game_input
     @user_input = gets.chomp.strip
+  end
+
+  def generate_answer(length_of_answer, number_of_colors)
+    if number_of_colors == 4
+      charset = Array["r", "b", "g", "y"]
+    elsif number_of_colors == 5
+      charset = Array["r", "b", "g", "y", "p"]
+    elsif number_of_colors == 6
+      charset = Array["r", "b", "g", "y", "p", "o"]
+    end
+    Array.new(length_of_answer) { charset.sample }
   end
 
   def new_game
@@ -45,26 +58,35 @@ class Game
         @printer.input_too_short
         @printer.continue_guesses
       elsif @user_input.chars == @answer_code
-        time_keeper
-        @printer.win_message(@user_input, @number_of_guesses.length, @finished_time)
-        @printer.play_again_message
-        InitialInput.new.play
+        winner
       else
         intake_guess(@user_input, @answer_code)
-        @printer.report_guess(@user_input, @results, @number_of_guesses)
+        @printer.report_guess(@user_input, @results, @history_of_guesses)
         @printer.continue_guesses
       end
     end
   end
 
   def intake_guess(user_guess, answer_code)
-    @number_of_guesses << @user_input
+    @history_of_guesses << @user_input
     @results = AnswerChecker.answer_check(user_guess, answer_code)
   end
 
   def display_guess_history
-    puts @number_of_guesses
+    puts @history_of_guesses
     @printer.continue_guesses
+  end
+
+  def winner
+    time_keeper
+    @printer.win_message(@user_input, @history_of_guesses.length, @finished_time)
+    @printer.congratulations
+    @top_ten_list.get_user_name
+    @top_ten_list.store_name_and_time(@user_input, @finished_time, @history_of_guesses.length)
+    @top_ten_list.user_completion_stats(@user_input, @finished_time, @history_of_guesses.length)
+    @top_ten_list.top_ten_ranking
+    @printer.play_again_message
+    InitialInput.new.play
   end
 
   def time_keeper
