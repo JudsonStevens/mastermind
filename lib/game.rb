@@ -42,7 +42,6 @@ class Game
   def new_game
     until @user_input == "q" || @user_input == "quit"
       get_game_input
-      p @answer_code
       if @user_input == "q" || @user_input == "quit"
         @printer.quit_message
         exit
