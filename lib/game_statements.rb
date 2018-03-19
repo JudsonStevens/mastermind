@@ -42,7 +42,6 @@ class GameStatements
     print "> "
   end
 
-
   def quit_message
     puts "Sorry to see you go!"
   end

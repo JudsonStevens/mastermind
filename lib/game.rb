@@ -13,7 +13,7 @@ class Game
               :length_of_answer
 
   def initialize(length_of_answer, number_of_colors)
-    @answer_code = AnswerGenerator.new.generate_answer(length_of_answer, number_of_colors)
+    @answer_code = generate_answer(length_of_answer, number_of_colors)
     @amount_of_colors = number_of_colors
     @length_of_answer = length_of_answer
     @history_of_guesses = []
@@ -26,6 +26,17 @@ class Game
 
   def get_game_input
     @user_input = gets.chomp.strip
+  end
+
+  def generate_answer(length_of_answer, number_of_colors)
+    if number_of_colors == 4
+      charset = Array["r", "b", "g", "y"]
+    elsif number_of_colors == 5
+      charset = Array["r", "b", "g", "y", "p"]
+    elsif number_of_colors == 6
+      charset = Array["r", "b", "g", "y", "p", "o"]
+    end
+    Array.new(length_of_answer) { charset.sample }
   end
 
   def new_game

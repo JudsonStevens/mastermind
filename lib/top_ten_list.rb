@@ -96,16 +96,3 @@ class TopTenList
     puts "\n\n"
   end
 end
-# Jeff, you guessed the sequence 'GRRB' in 8 guesses over 4 minutes,
-# 22 seconds. That's 1 minute, 10 seconds faster and two guesses fewer than the
-# average.
-
-# a = TopTenList.new
-
-# a.store_name_and_time("rrbr", [10, 40], 31)
-# a.retrieve_top_ten_values
-# a.average_count_to_solve
-# a.average_time_to_solve
-# a.report_time_difference([0, 40])
-# a.top_ten_ranking
-# a.user_completion_stats("rrbr", [10, 40], 31)
