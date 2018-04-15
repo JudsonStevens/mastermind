@@ -102,7 +102,10 @@ class TopTenList
     name_increment = 0
     puts "\n\n          ╒══════════════╕\n          │=== TOP 10 ===│\n          ╘══════════════\u255B"
     print_top_ten_list.each do |item|
-      puts "#{list_increment}. #{print_top_ten_list[name_increment]["name and answer"][0]} solved #{print_top_ten_list[name_increment]["name and answer"][1]} in #{print_top_ten_list[name_increment]["number of guesses"]} guesses over #{(print_top_ten_list[name_increment]["time"])/60}m#{(print_top_ten_list[name_increment]["time"])%60}s."
+      puts "#{list_increment}. #{print_top_ten_list[name_increment]["name and answer"][0]} " +
+           "solved #{print_top_ten_list[name_increment]["name and answer"][1]} in " + 
+           "#{print_top_ten_list[name_increment]["number of guesses"]} guesses " +
+           "over #{(print_top_ten_list[name_increment]["time"])/60}m#{(print_top_ten_list[name_increment]["time"])%60}s."
       list_increment += 1
       name_increment += 1
     end

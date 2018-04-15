@@ -110,10 +110,4 @@ class Game
     seconds = ((Time.now - @starting_time) % 60).to_i
     @finished_time = [minutes, seconds]
   end
-
-#Short method to display the answer in the cheat method in the game statements class.
-#Needs to be reworked.
-  def display_answer_code(answer)
-    answer = @answer_code
-  end
 end
